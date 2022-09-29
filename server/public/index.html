@@ -9,8 +9,45 @@
   <script src="scripts/client.js"></script>
   <link rel="stylesheet" href="styles/styles.css">
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+
 </head>
 <body>
     <h1>YOUR GAME HERE!</h1>
-</body>
+    <h1 id="winners"></h1>
+    <form id="guessForm">
+      <div>
+        <label for="player1">Player 1:</label>
+        <input name="player1" id="player1" type="number" placeholder="Your number">
+      </div>
+      <div>
+        <label for="player2">Player 2:</label>
+        <input name="player2" id="player2" type="number" placeholder="Your number">
+      </div>
+      <div>
+        <label for="player3">Player 3:</label>
+        <input name="player3" id="player3" type="number" placeholder="Your number">
+      </div>
+      <div>
+        <label for="player4">Player 4:</label>
+        <input name="player4" id="player4" type="number" placeholder="Your number">
+      </div>  
+      <br>
+      <button>Submit</button>
+    </form>
+    <button type="button" id="resetButton">Reset secret number</button>
+    <br>
+    <br>
+    <table id="historyTable">
+        <thead>
+          <tr>
+            <th>Player 1: </th>
+            <th>Player 2: </th>
+            <th>Player 3: </th>
+            <th>Player 4: </th>
+        </tr>
+        </thead>
+        <tbody id="history">
+        </tbody>
+      </table>
+  </body>
 </html>
