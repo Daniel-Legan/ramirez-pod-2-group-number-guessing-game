@@ -3,11 +3,12 @@
 $(document).ready(handleReady);
 
 let givenResults = [];
-
+let roundCount = 0;
 let roundClicker = -1;
 
 function handleReady() {
   console.log("jquery is loaded!")
+  render();
   $('#guessForm').on('submit', onSubmit);
   $('#resetButton').on('click', resetNumber)
 }
@@ -82,8 +83,12 @@ function showAnswers(){
 
 function render(){
   console.log('in render');
+  roundCount++;
   // console.log(givenResults[0].pOne.answer);
   // winnerCheck();
+  $('#roundCount').empty();
+  console.log(roundCount);
+  $('#roundCount').append(`Round Count: ${roundCount}`);
   $('#history').empty();
   for(let objct of givenResults){
     winnerCheck();
@@ -102,27 +107,19 @@ function render(){
 function winnerCheck(){
   if(givenResults[roundClicker].pOne.answer === 'Correct!'){
     // $('#winners').empty();
-    $('#winners').append(`
-      PLAYER 1 HAS WON THE GAME!!!!!
-    `)
+    $('#winners').append(`<div>PLAYER 1 HAS WON THE GAME!!!!!</div>`)
   }
   if(givenResults[roundClicker].pTwo.answer === 'Correct!'){
     // $('#winners').empty();
-    $('#winners').append(`
-      PLAYER 2 HAS WON THE GAME !!!!!
-    `)
+    $('#winners').append(`<div>PLAYER 2 HAS WON THE GAME!!!!!</div>`)
   }
   if(givenResults[roundClicker].pThree.answer === 'Correct!'){
     // $('#winners').empty();
-    $('#winners').append(`
-      PLAYER 3 HAS WON THE GAME!!!!!
-    `)
+    $('#winners').append(`<div>PLAYER 3 HAS WON THE GAME!!!!!</div>`)
   }
   if(givenResults[roundClicker].pFour.answer === 'Correct!'){
     // $('#winners').empty();
-    $('#winners').append(`
-      PLAYER 4 HAS WON THE GAME!!!!!
-    `)
+    $('#winners').append(`<div>PLAYER 4 HAS WON THE GAME!!!!!</div>`)
   }
   // else{
   //   return 'No winners, heading out of winnerCheck';
