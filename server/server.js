@@ -10,6 +10,30 @@ let randomizedNumber = randomNumber();
 
 let guesses = [];
 
+let roundClicker = -1;
+
+function playOneCheck(){
+  roundClicker++;
+  let checkedNumber = guesses[roundClicker];
+  if(Number(checkedNumber.playerOne) === randomizedNumber){
+    return {
+      answer: 'Correct!'
+    }
+  }
+  else if(checkedNumber.playerOne > randomizedNumber){
+    return {
+      answer: 'Your guess was too high'
+    }
+  }
+  else{
+    return {
+      answer: 'Your guess was too low'
+    }
+  }
+  // console.log('checkingNumber', checkedNumber);
+  // console.log('checkNumber.playerOne: ', checkedNumber.playerOne);
+}
+
 // This must be added before GET & POST routes.
 app.use(bodyParser.urlencoded({extended:true}))
 
@@ -21,8 +45,9 @@ app.use(express.static('server/public'));
 app.post('/answers', (req, res) =>{
   let newGuesses = req.body;
   guesses.push(newGuesses);
-  console.log('incoming post', newGuesses);
-  console.log(guesses);
+  console.log('checking playOneCheck', playOneCheck());
+  // console.log('incoming post', newGuesses);
+  // console.log(guesses);
   res.sendStatus(201);
 })
 
