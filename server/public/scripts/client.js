@@ -1,4 +1,10 @@
+// const { response } = require("express");
+
 $(document).ready(handleReady);
+
+let givenResults = [];
+
+let roundClicker = -1;
 
 function handleReady() {
   console.log("jquery is loaded!")
@@ -33,4 +39,21 @@ function onSubmit(evt){
     .catch(err => {
       console.log('An error was found in onSubmit', err)
     });
+
+    showAnswers();
+}
+
+function showAnswers(){
+  $.ajax({
+    url:'/answers',
+    method: 'GET'
+  })
+    .then(response =>{
+      roundClicker++;
+      givenResults.push(response);
+      console.log('checking givenResults', givenResults[roundClicker]);
+    })
+      .catch(err =>{
+        console.log('There was an error in showAnswers', err);
+      })
 }
