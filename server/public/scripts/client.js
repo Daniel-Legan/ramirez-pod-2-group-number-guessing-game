@@ -51,7 +51,9 @@ function showAnswers(){
     .then(response =>{
       roundClicker++;
       givenResults.push(response);
-      console.log('checking givenResults', givenResults[roundClicker]);
+      // givenResults = response;
+      console.log(givenResults);
+      // console.log('checking givenResults', givenResults[roundClicker]);
       render();
     })
       .catch(err =>{
@@ -60,14 +62,19 @@ function showAnswers(){
 }
 
 function render(){
+  console.log('in render');
+  // console.log(givenResults[0].pOne.answer);
   $('#history').empty();
   for(let objct of givenResults){
+    console.log('testing the for loop', objct.pOne.answer);
+
+
     $('#history').append(`
       <tr>
-        <td>${objct.pOne}</td>
-        <td>${objct.pTwo}</td>
-        <td>${objct.pThree}</td>
-        <td>${objct.pFour}</td>
+        <td>${objct.pOne.answer}</td>
+        <td>${objct.pTwo.answer}</td>
+        <td>${objct.pThree.answer}</td>
+        <td>${objct.pFour.answer}</td>
       </tr>
     `);
   } 
