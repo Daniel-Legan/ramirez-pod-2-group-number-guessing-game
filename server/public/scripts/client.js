@@ -8,8 +8,27 @@ let roundClicker = -1;
 
 function handleReady() {
   console.log("jquery is loaded!")
-  showAnswers();
   $('#guessForm').on('submit', onSubmit);
+  $('#resetButton').on('click', resetNumber)
+}
+
+function resetNumber(){
+  console.log("click");
+
+  $.ajax({
+    url:'/reset-number',
+    method: 'POST'
+  })
+    .then(response =>{
+      console.log('All good in resetnumber', response);
+    })
+    .catch(err =>{
+      console.log('An error was found in resetNumber', err)
+    })
+    givenResults = [];
+    roundClicker = -1;
+    $('#winners').empty();
+    render();
 }
 
 function onSubmit(evt){
@@ -64,18 +83,48 @@ function showAnswers(){
 function render(){
   console.log('in render');
   // console.log(givenResults[0].pOne.answer);
+  // winnerCheck();
   $('#history').empty();
   for(let objct of givenResults){
-    console.log('testing the for loop', objct.pOne.answer);
-
-
+    winnerCheck();
+    // console.log('testing the for loop', objct.pOne.answer);
     $('#history').append(`
       <tr>
-        <td>${objct.pOne.answer}</td>
-        <td>${objct.pTwo.answer}</td>
-        <td>${objct.pThree.answer}</td>
-        <td>${objct.pFour.answer}</td>
+        <td>${objct.pOne.number}: ${objct.pOne.answer}</td>
+        <td>${objct.pTwo.number}: ${objct.pTwo.answer}</td>
+        <td>${objct.pThree.number}: ${objct.pThree.answer}</td>
+        <td>${objct.pFour.number}: ${objct.pFour.answer}</td>
       </tr>
     `);
   } 
+}
+
+function winnerCheck(){
+  if(givenResults[roundClicker].pOne.answer === 'Correct!'){
+    // $('#winners').empty();
+    $('#winners').append(`
+      PLAYER 1 HAS WON THE GAME!!!!!
+    `)
+  }
+  if(givenResults[roundClicker].pTwo.answer === 'Correct!'){
+    // $('#winners').empty();
+    $('#winners').append(`
+      PLAYER 2 HAS WON THE GAME !!!!!
+    `)
+  }
+  if(givenResults[roundClicker].pThree.answer === 'Correct!'){
+    // $('#winners').empty();
+    $('#winners').append(`
+      PLAYER 3 HAS WON THE GAME!!!!!
+    `)
+  }
+  if(givenResults[roundClicker].pFour.answer === 'Correct!'){
+    // $('#winners').empty();
+    $('#winners').append(`
+      PLAYER 4 HAS WON THE GAME!!!!!
+    `)
+  }
+  // else{
+  //   return 'No winners, heading out of winnerCheck';
+  // }
 }

@@ -34,6 +34,14 @@ app.use(express.static('server/public'));
 
 // GET & POST Routes go here
 
+app.post('/reset-number', (req, res)=>{
+  let newSecretNum= randomNumber();
+  // console.log(newSecretNum);
+  randomizedNumber = newSecretNum
+  console.log(randomizedNumber);
+  res.sendStatus(201);
+});
+
 app.post('/answers', (req, res) =>{
   let newGuesses = req.body;
   guesses.push(newGuesses);
@@ -50,16 +58,16 @@ app.post('/answers', (req, res) =>{
   groupAnswers.push(newAnswers);
   console.log(groupAnswers);
   res.sendStatus(201);
-})
+});
 
 app.get('/answers', (req, res)=>{
   res.send(groupAnswers[roundClicker]);
-})
+});
 
 app.listen(3000, () => {
   console.log ('Server is running on port', 3000)
   console.log ('The random number is ', randomizedNumber);
-})
+});
 
 
 
@@ -68,17 +76,20 @@ function playOneCheck(){
   let checkedNumber = guesses[roundClicker];
   if(Number(checkedNumber.playerOne) === randomizedNumber){
     return {
-      answer: 'Correct!'
+      answer: 'Correct!',
+      number: checkedNumber.playerOne 
     }
   }
   else if(checkedNumber.playerOne > randomizedNumber){
     return {
-      answer: 'Your guess was too high'
+      answer: 'Too high',
+      number: checkedNumber.playerOne 
     }
   }
   else{
     return {
-      answer: 'Your guess was too low'
+      answer: 'Too low',
+      number: checkedNumber.playerOne
     }
   }
   // console.log('checkingNumber', checkedNumber);
@@ -89,17 +100,20 @@ function playTwoCheck(){
   let checkedNumber = guesses[roundClicker];
   if(Number(checkedNumber.playerTwo) === randomizedNumber){
     return {
-      answer: 'Correct!'
+      answer: 'Correct!',
+      number: checkedNumber.playerTwo
     }
   }
   else if(checkedNumber.playerTwo > randomizedNumber){
     return {
-      answer: 'Your guess was too high'
-    }
+      answer: 'Too high',
+      number: checkedNumber.playerTwo  
+      }
   }
   else{
     return {
-      answer: 'Your guess was too low'
+      answer: 'Too low',
+      number: checkedNumber.playerTwo 
     }
   }
   // console.log('checkingNumber', checkedNumber);
@@ -110,17 +124,20 @@ function playThreeCheck(){
   let checkedNumber = guesses[roundClicker];
   if(Number(checkedNumber.playerThree) === randomizedNumber){
     return {
-      answer: 'Correct!'
+      answer: 'Correct!',
+      number: checkedNumber.playerThree
     }
   }
   else if(checkedNumber.playerThree > randomizedNumber){
     return {
-      answer: 'Your guess was too high'
+      answer: 'Too high',
+      number: checkedNumber.playerThree
     }
   }
   else{
     return {
-      answer: 'Your guess was too low'
+      answer: 'Too low',
+      number: checkedNumber.playerThree
     }
   }
   // console.log('checkingNumber', checkedNumber);
@@ -131,17 +148,20 @@ function playFourCheck(){
   let checkedNumber = guesses[roundClicker];
   if(Number(checkedNumber.playerFour) === randomizedNumber){
     return {
-      answer: 'Correct!'
+      answer: 'Correct!',
+      number: checkedNumber.playerFour
     }
   }
   else if(checkedNumber.playerFour > randomizedNumber){
     return {
-      answer: 'Your guess was too high'
+      answer: 'Too high',
+      number: checkedNumber.playerFour
     }
   }
   else{
     return {
-      answer: 'Your guess was too low'
+      answer: 'Too low',
+      number: checkedNumber.playerFour
     }
   }
   // console.log('checkingNumber', checkedNumber);
