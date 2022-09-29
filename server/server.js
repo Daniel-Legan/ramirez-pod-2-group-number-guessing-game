@@ -8,6 +8,8 @@ function randomNumber(){
 
 let randomizedNumber = randomNumber();
 
+let guesses = [];
+
 // This must be added before GET & POST routes.
 app.use(bodyParser.urlencoded({extended:true}))
 
@@ -15,6 +17,14 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.static('server/public'));
 
 // GET & POST Routes go here
+
+app.post('/answers', (req, res) =>{
+  let newGuesses = req.body;
+  guesses.push(newGuesses);
+  console.log('incoming post', newGuesses);
+  console.log(guesses);
+  res.sendStatus(201);
+})
 
 
 app.listen(3000, () => {
