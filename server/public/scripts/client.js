@@ -8,7 +8,7 @@ let roundClicker = -1;
 
 function handleReady() {
   console.log("jquery is loaded!")
-
+  showAnswers();
   $('#guessForm').on('submit', onSubmit);
 }
 
@@ -23,10 +23,10 @@ function onSubmit(evt){
     playerFour: Number($('#player4').val())
   }
   console.log(newSubmit);
-  // $('#player1').val('');
-  // $('#player2').val('');
-  // $('#player3').val('');
-  // $('#player4').val('');
+  $('#player1').val('');
+  $('#player2').val('');
+  $('#player3').val('');
+  $('#player4').val('');
 
   $.ajax({
     url: '/answers',
@@ -52,8 +52,23 @@ function showAnswers(){
       roundClicker++;
       givenResults.push(response);
       console.log('checking givenResults', givenResults[roundClicker]);
+      render();
     })
       .catch(err =>{
         console.log('There was an error in showAnswers', err);
       })
+}
+
+function render(){
+  $('#history').empty();
+  for(let objct of givenResults){
+    $('#history').append(`
+      <tr>
+        <td>${objct.pOne}</td>
+        <td>${objct.pTwo}</td>
+        <td>${objct.pThree}</td>
+        <td>${objct.pFour}</td>
+      </tr>
+    `);
+  } 
 }
