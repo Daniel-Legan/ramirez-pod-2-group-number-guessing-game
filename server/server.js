@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const app = express();
 
-function randomNumber(){
+function randomNumber() {
   return Math.floor(Math.random() * (25-1) +1);
 }
 
@@ -34,15 +34,15 @@ app.use(express.static('server/public'));
 
 // GET & POST Routes go here
 
-app.post('/reset-number', (req, res)=>{
-  let newSecretNum= randomNumber();
+app.post('/reset-number', (req, res) => {
+  let newSecretNum = randomNumber();
   // console.log(newSecretNum);
-  randomizedNumber = newSecretNum
+  randomizedNumber = newSecretNum;
   console.log(randomizedNumber);
   res.sendStatus(201);
 });
 
-app.post('/answers', (req, res) =>{
+app.post('/answers', (req, res) => {
   let newGuesses = req.body;
   guesses.push(newGuesses);
   let playerOneAnswer = playOneCheck();
@@ -60,18 +60,18 @@ app.post('/answers', (req, res) =>{
   res.sendStatus(201);
 });
 
-app.get('/answers', (req, res)=>{
+app.get('/answers', (req, res) => {
   res.send(groupAnswers[roundClicker]);
 });
 
 app.listen(3000, () => {
   console.log ('Server is running on port', 3000)
-  console.log ('The random number is ', randomizedNumber);
+  console.log ('The random number is', randomizedNumber);
 });
 
 
 
-function playOneCheck(){
+function playOneCheck() {
   roundClicker++;
   let checkedNumber = guesses[roundClicker];
   if(Number(checkedNumber.playerOne) === randomizedNumber){

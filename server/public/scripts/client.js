@@ -7,24 +7,24 @@ let roundCount = 0;
 let roundClicker = -1;
 
 function handleReady() {
-  console.log("jquery is loaded!")
+  console.log("jQuery is loaded!")
   render();
   $('#guessForm').on('submit', onSubmit);
-  $('#resetButton').on('click', resetNumber)
+  $('#resetButton').on('click', resetNumber);
 }
 
-function resetNumber(){
+function resetNumber() {
   console.log("click");
 
   $.ajax({
     url:'/reset-number',
     method: 'POST'
   })
-    .then(response =>{
-      console.log('All good in resetnumber', response);
+    .then(response => {
+      console.log('All good in resetNumber', response);
     })
-    .catch(err =>{
-      console.log('An error was found in resetNumber', err)
+    .catch(err => {
+      console.log('An error was found in resetNumber', err);
     })
     givenResults = [];
     roundClicker = -1;
@@ -32,7 +32,7 @@ function resetNumber(){
     render();
 }
 
-function onSubmit(evt){
+function onSubmit(evt) {
   evt.preventDefault();
   console.log('in onSubmit');
 
@@ -53,22 +53,22 @@ function onSubmit(evt){
     method: 'POST',
     data: newSubmit
   })
-    .then(response =>{
+    .then(response => {
       console.log(response);
     })
     .catch(err => {
-      console.log('An error was found in onSubmit', err)
+      console.log('An error was found in onSubmit', err);
     });
 
     showAnswers();
 }
 
-function showAnswers(){
+function showAnswers() {
   $.ajax({
     url:'/answers',
     method: 'GET'
   })
-    .then(response =>{
+    .then(response => {
       roundClicker++;
       givenResults.push(response);
       // givenResults = response;
@@ -76,12 +76,12 @@ function showAnswers(){
       // console.log('checking givenResults', givenResults[roundClicker]);
       render();
     })
-      .catch(err =>{
-        console.log('There was an error in showAnswers', err);
-      })
+    .catch(err => {
+      console.log('There was an error in showAnswers', err);
+    })
 }
 
-function render(){
+function render() {
   console.log('in render');
   roundCount++;
   // console.log(givenResults[0].pOne.answer);
@@ -90,7 +90,7 @@ function render(){
   console.log(roundCount);
   $('#roundCount').append(`Round Count: ${roundCount}`);
   $('#history').empty();
-  for(let objct of givenResults){
+  for(let objct of givenResults) {
     winnerCheck();
     // console.log('testing the for loop', objct.pOne.answer);
     $('#history').append(`
@@ -104,7 +104,7 @@ function render(){
   } 
 }
 
-function winnerCheck(){
+function winnerCheck() {
   if(givenResults[roundClicker].pOne.answer === 'Correct!'){
     // $('#winners').empty();
     $('#winners').append(`<div>PLAYER 1 HAS WON THE GAME!!!!!</div>`)
@@ -121,7 +121,4 @@ function winnerCheck(){
     // $('#winners').empty();
     $('#winners').append(`<div>PLAYER 4 HAS WON THE GAME!!!!!</div>`)
   }
-  // else{
-  //   return 'No winners, heading out of winnerCheck';
-  // }
 }
